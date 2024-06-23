@@ -12,6 +12,18 @@ services:
       - 9000:8080
     networks:
       - rust_back_web
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: containers/rust/Dockerfile
+    volumes:
+      - ./application:/application
+    ports:
+      - "8000:8000"
+    networks:
+      - rust_back_web
+    command: /bin/sh -c "cargo watch -x run"
 networks:
   rust_back_web:
     external: false
