@@ -1,0 +1,31 @@
+# https://swagger.io/tools/swagger-ui/
+openapi: 3.0.3
+info:
+  title: rust_backend_practice
+  description: |-
+    # Rustのバックエンド練習
+  version: 1.0.1
+servers:
+  - url: http://localhost:8000/
+tags:
+  - name: health
+    description: ヘルスチェック用のAPI
+paths:
+  /api/health:
+    get:
+      tags:
+        - health
+      summary: ヘルスチェックAPI
+      description: APIサーバー単独でのヘルスチェック
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータス
+                    example: pass

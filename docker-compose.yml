@@ -1,0 +1,17 @@
+services:
+  docs:
+    container_name: docs
+    build:
+      context: .
+      dockerfile: containers/swagger/Dockerfile
+    volumes:
+      - ./docs/openapi.yml:/openapi/openapi.yml
+    environment:
+      - SWAGGER_JSON=/openapi/openapi.yml
+    ports:
+      - 9000:8080
+    networks:
+      - rust_back_web
+networks:
+  rust_back_web:
+    external: false
