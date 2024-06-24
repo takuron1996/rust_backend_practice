@@ -1,1 +1,2 @@
-FROM swaggerapi/swagger-ui:v5.17.14
+ARG RUNTIME_VERSION="v5.17.14"
+FROM swaggerapi/swagger-ui:${RUNTIME_VERSION}
