@@ -24,6 +24,8 @@ services:
     networks:
       - rust_back_web
     command: /bin/sh -c "cargo watch -x run"
+    env_file:
+      - .env
 networks:
   rust_back_web:
     external: false
