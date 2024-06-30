@@ -6,13 +6,13 @@ use std::process;
 /// CORS関連
 #[derive(Default, Debug, Serialize, Deserialize)]
 pub struct CorsConfig {
+    /// CORSで許可するオリジン
     #[serde(deserialize_with = "deserialize_with_env")]
     pub allowed_origin: String,
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
 pub struct Config {
-    /// CORSで許可するオリジン
     pub cors: CorsConfig,
 }
 
