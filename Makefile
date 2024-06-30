@@ -21,3 +21,5 @@ format:
 test: format
 	$(DOCKER) cargo test
 
+fix:
+	$(DOCKER) cargo audit

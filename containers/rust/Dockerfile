@@ -13,4 +13,4 @@ RUN cargo install --path .
 
 WORKDIR /application
 
-RUN rustup component add rustfmt && rustup component add clippy && cargo install cargo-watch
+RUN rustup component add rustfmt && rustup component add clippy && cargo install cargo-watch && cargo install cargo-audit

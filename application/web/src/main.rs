@@ -3,9 +3,9 @@ use actix_web::middleware::Logger;
 use actix_web::{get, http::header, web, App, HttpServer, Responder, Result};
 use env_logger::Env;
 
+mod config;
 mod middleware;
 mod response;
-
 /// ヘルスチェックAPI
 #[get("health")]
 async fn health() -> Result<impl Responder> {
@@ -17,9 +17,9 @@ async fn health() -> Result<impl Responder> {
 
 /// CORSの設定
 /// LOCAL用
-fn get_cors() -> actix_cors::Cors {
+fn get_cors(allowed_origin: &str) -> actix_cors::Cors {
     Cors::default()
-        .allowed_origin("http://localhost:9000")
+        .allowed_origin(allowed_origin)
         .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
         .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
         .allowed_header(header::CONTENT_TYPE)
@@ -35,7 +35,8 @@ fn get_cors() -> actix_cors::Cors {
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(Env::default().default_filter_or("info"));
     HttpServer::new(|| {
-        let cors: Cors = get_cors();
+        let config = config::env::get_config();
+        let cors: Cors = get_cors(&config.cors.allowed_origin);
         App::new()
             .wrap(cors)
             .wrap(Logger::default())
