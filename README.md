@@ -1,6 +1,17 @@
 # rust_backend_practice
 Rustのバックエンド練習
 
+# 環境変数
+
+| 変数名 | 内容 |
+|--|--|
+| ALLOWED_ORIGIN | CORSで許可するURL |
+| POSTGRES_USER | postgreSQLのユーザー |
+| POSTGRES_PASSWORD | postgreSQLのパスワード |
+| POSTGRES_HOST | postgreSQLのホスト |
+| POSTGRES_PORT | postgreSQLのポート |
+| POSTGRES_DB | postgreSQLのDB |
+
 # コマンド
 
 ## マイグレーションファイル作成
