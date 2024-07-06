@@ -1,4 +1,22 @@
 services:
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: containers/postgres/Dockerfile
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U "${POSTGRES_USER:-postgres}" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    networks:
+      - rust_back_db
   docs:
     container_name: docs
     build:
@@ -23,9 +41,17 @@ services:
       - "8000:8000"
     networks:
       - rust_back_web
+      - rust_back_db
+    depends_on:
+      db:
+        condition: service_healthy
     command: /bin/sh -c "cargo watch -x run"
     env_file:
       - .env
 networks:
   rust_back_web:
     external: false
+  rust_back_db:
+    external: false
+volumes:
+  db_data:
